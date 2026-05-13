@@ -1,190 +1,224 @@
 <p align="center">
-  <img src="assets/icon.png" alt="AegisLayer Logo" width="120" />
+  <img src="assets/banner.png" alt="AegisLayer Banner" width="180" />
 </p>
 
 <h1 align="center">AegisLayer — The Document Sentinel</h1>
 
 <p align="center">
-  <strong>Privacy-First PDF Sanitization for the Browser</strong>
+  <strong>Privacy-First PDF Sanitization Browser Extension</strong>
 </p>
 
 <p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#-installation">Installation</a> •
-  <a href="#-how-it-works">How It Works</a> •
-  <a href="#-usage-guide">Usage</a> •
-  <a href="#-supported-ai-providers">AI Providers</a> •
-  <a href="#-build-from-source">Build</a> •
-  <a href="#-architecture">Architecture</a> •
-  <a href="#-license">License</a>
+  <a href="#-quick-install"><img src="https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Chrome Extension" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" /></a>
+  <img src="https://img.shields.io/badge/Version-1.1.0-blue?style=for-the-badge" alt="Version" />
+  <img src="https://img.shields.io/badge/Manifest-V3-orange?style=for-the-badge" alt="MV3" />
+</p>
+
+<p align="center">
+  AegisLayer is a premier, privacy-first browser extension that intercepts and sanitizes sensitive PDFs locally before upload. Using a hybrid detection engine (Advanced NER + Heuristics + optional Cloud AI) and image-aware OCR, it autonomously identifies PII. Built with pdf-lib, it performs permanent byte-level redaction via a sleek glassmorphism interface.
 </p>
 
 ---
 
-## 🛡️ What is AegisLayer?
+## 📋 Table of Contents
 
-**AegisLayer** is an open-source browser extension that acts as an autonomous privacy sentinel for your PDF documents. It intercepts, scans, and sanitizes sensitive documents **entirely on your local machine** — before they ever reach a third-party server.
-
-Whether you're uploading a resume to a job portal, submitting certificates to a verification service, or sharing contracts online, AegisLayer ensures your **Personally Identifiable Information (PII)** is permanently and irreversibly redacted at the byte level.
-
-> **No data leaves your browser.** All processing — text extraction, OCR, AI detection, and redaction — happens 100% client-side.
+- [Features](#-features)
+- [How It Works](#-how-it-works)
+- [Quick Install](#-quick-install)
+- [Usage Guide](#-usage-guide)
+- [Architecture](#%EF%B8%8F-architecture)
+- [AI Providers](#-ai-providers)
+- [Build From Source](#-build-from-source)
+- [Project Structure](#-project-structure)
+- [Browser Compatibility](#-browser-compatibility)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
 ## ✨ Features
 
-### Core Privacy Engine
-- 🔒 **Byte-Level Redaction** — PII is not just covered with a black box; the underlying text data in the PDF is permanently destroyed and replaced with synthetic `[REDACTED]` stamps.
-- 📄 **Smart Text Extraction** — Uses `pdfjs-dist` to extract the full text layer from native PDFs with precise bounding-box coordinates for pixel-perfect redaction.
-- 🖼️ **Image-Aware OCR** — Automatically detects scanned/image-heavy PDFs (certificates, scanned contracts) and performs Optical Character Recognition via **Tesseract.js v7**, running securely in a Chrome Offscreen Document.
-- 🧠 **Autonomous PII Detection** — Combines advanced regex heuristics, context-aware N-gram analysis, and a local NER (Named Entity Recognition) AI model (`Xenova/bert-base-NER`) to intelligently identify names, organizations, phone numbers, emails, IDs, and more — without any hardcoded keyword lists.
-
-### User Experience
-- 🎨 **Glassmorphism UI** — A stunning, modern interface rendered in a Shadow DOM overlay directly on the page you're visiting, with smooth animations and dark-mode aesthetics.
-- ✅ **Interactive Review Panel** — Every detected PII entity is presented in a categorized list. You can toggle individual items on/off before redacting, giving you complete control.
-- 📋 **Real-Time Logs** — A live console in the UI shows every step of the pipeline: text extraction progress, OCR page-by-page status, PII detection results, and redaction confirmations.
-- 📥 **Instant Download** — After review, the sanitized PDF is generated and downloaded in seconds, ready for safe sharing.
-
-### Interception Engine
-- 🚨 **Automatic File Interception** — AegisLayer hooks into every file upload `<input>` on every website using a document-level capture-phase listener. When you try to upload a PDF, AegisLayer intercepts it *before* the website sees it.
-- 🖱️ **Drag & Drop Support** — Dragging a PDF onto a website's upload zone triggers interception as well.
-- 📤 **Manual Upload** — Click the extension popup icon to manually upload and scan any PDF from your system.
-
-### Multi-Provider AI Support
-- 🤖 **5 Detection Engines** — Choose from AegisLayer Local (fully offline), Google Gemini, OpenAI GPT-4o Mini, Anthropic Claude, or xAI Grok.
-- 🔑 **Bring Your Own Key** — For cloud providers, simply paste your API key. It's stored locally in `chrome.storage` and never transmitted anywhere except directly to the provider you select.
-
----
-
-## 📦 Installation
-
-### Method 1: Download the Pre-Built Extension (Recommended)
-
-1. Go to the [**Releases**](https://github.com/HaswanthR-CIT/Aegis_Layer/releases) page.
-2. Download the latest `AegisLayer-v1.1.0.zip` file.
-3. Unzip the downloaded file to a folder on your computer.
-4. Open **Google Chrome** and navigate to `chrome://extensions/`.
-5. Enable **Developer Mode** (toggle in the top-right corner).
-6. Click **"Load unpacked"**.
-7. Select the unzipped folder (the one containing `manifest.json`).
-8. ✅ AegisLayer is now installed! You'll see the shield icon in your toolbar.
-
-### Method 2: Build from Source
-
-See the [Build from Source](#-build-from-source) section below.
-
-### Supported Browsers
-
-| Browser | Status |
-|---------|--------|
-| Google Chrome | ✅ Fully Supported |
-| Microsoft Edge | ✅ Fully Supported |
-| Brave | ✅ Fully Supported |
-| Opera | ✅ Fully Supported |
-| Arc | ✅ Fully Supported |
-| Firefox | ❌ Not Supported (MV3 differences) |
+| Feature | Description |
+|---|---|
+| 🛡️ **Real-Time Interception** | Automatically intercepts PDF uploads on any website before they leave your browser |
+| 🔍 **Hybrid PII Detection** | Combines regex patterns, advanced heuristics, and BERT-based NER for maximum accuracy |
+| 🖼️ **Image-Aware OCR** | Reads text from scanned/image-heavy PDFs using Tesseract.js running in a secure Offscreen Document |
+| 🤖 **Multi-AI Support** | Optionally route detection through Google Gemini, OpenAI GPT-4o, Anthropic Claude, or xAI Grok |
+| ✂️ **Permanent Byte-Level Redaction** | Doesn't just draw boxes — permanently destroys underlying text data at the PDF byte layer |
+| 🎨 **Interactive Review Workspace** | Glassmorphism-styled overlay lets you preview, toggle, and selectively approve each redaction |
+| 📥 **Manual Upload Mode** | Upload PDFs directly through the popup for standalone sanitization |
+| 🔒 **100% Local by Default** | Zero network requests in local mode — your documents never leave your machine |
+| 📄 **Metadata Wipe** | Strips all PDF metadata (author, creator, timestamps, keywords) from the output |
+| 🧠 **Smart Stamping** | Dynamically sizes "REDACTED" labels — skips the label on small words to prevent text bleeding |
 
 ---
 
 ## 🔍 How It Works
 
-AegisLayer operates as a multi-layered privacy pipeline:
-
 ```
-┌──────────────────────────────────────────────────────┐
-│                    YOUR BROWSER                      │
-│                                                      │
-│  ┌─────────────┐    ┌──────────────────────────────┐ │
-│  │  Website     │───▶│  INTERCEPTOR (Content Script)│ │
-│  │  Upload Form │    │  Capture-phase listener       │ │
-│  └─────────────┘    │  Blocks PDF before website    │ │
-│                     └──────────┬───────────────────┘ │
-│                                ▼                     │
-│              ┌─────────────────────────────────┐     │
-│              │     OVERLAY (Shadow DOM UI)      │     │
-│              │  ┌───────────────────────────┐   │     │
-│              │  │ 1. PDF.js Text Extraction  │   │     │
-│              │  │ 2. OCR (Offscreen Worker)  │   │     │
-│              │  │ 3. PII Detection (NER/AI)  │   │     │
-│              │  │ 4. Interactive Review       │   │     │
-│              │  │ 5. pdf-lib Byte Redaction   │   │     │
-│              │  └───────────────────────────┘   │     │
-│              └─────────────────────────────────┘     │
-│                                                      │
-│  ┌──────────────────┐  ┌─────────────────────────┐   │
-│  │  BACKGROUND       │  │  OFFSCREEN DOCUMENT     │   │
-│  │  Service Worker   │──│  Tesseract.js v7 OCR    │   │
-│  │  (Message Router) │  │  (Bypasses website CSP) │   │
-│  └──────────────────┘  └─────────────────────────┘   │
-└──────────────────────────────────────────────────────┘
+┌─────────────────┐     ┌──────────────────┐     ┌──────────────────┐
+│  1. INTERCEPT    │────▶│  2. EXTRACT       │────▶│  3. DETECT       │
+│  PDF upload or   │     │  PDF.js text      │     │  Heuristics +    │
+│  manual upload   │     │  layer + OCR for  │     │  NER + optional  │
+│  detected        │     │  image pages      │     │  Cloud AI        │
+└─────────────────┘     └──────────────────┘     └──────────────────┘
+                                                          │
+┌─────────────────┐     ┌──────────────────┐              │
+│  5. DOWNLOAD     │◀────│  4. REDACT        │◀─────────────┘
+│  Sanitized PDF   │     │  Byte-level wipe  │
+│  ready to use    │     │  + metadata strip  │
+└─────────────────┘     └──────────────────┘
 ```
 
-### Step-by-Step Pipeline
+### Detection Categories
 
-1. **Interception** — When you upload a PDF on any website, the interceptor content script catches it in the capture phase, *before* the website's own JavaScript can read the file.
-2. **Text Extraction** — The full text layer is extracted using `pdfjs-dist` with precise (x, y, width, height) coordinates for every word.
-3. **OCR Fallback** — If a page has fewer than 30 text items or 200 characters (image-heavy/scanned), the page is rendered to a high-resolution canvas and sent to a secure Tesseract.js worker running in a Chrome Offscreen Document.
-4. **PII Detection** — The combined text is analyzed using:
-   - **Heuristic Regex Engine** — 15+ pattern matchers for emails, phones, Aadhaar, PAN, SSN, passport numbers, dates, URLs, and more.
-   - **Context-Aware N-gram Analysis** — Detects names, organizations, and roles near context trigger words like "Name:", "Company:", "LinkedIn", "Father:", etc.
-   - **NER AI Model** — `Xenova/bert-base-NER` with subword token grouping to accurately identify full names, organizations, and locations with confidence filtering.
-5. **Interactive Review** — All detected entities are shown in a categorized panel. Toggle any item on or off.
-6. **Byte-Level Redaction** — Using `pdf-lib`, the engine:
-   - Strips all PDF metadata (author, creator, timestamps).
-   - Draws pitch-black rectangles over every PII coordinate.
-   - Stamps `REDACTED` in white text (only if the box is wide enough to fit the label).
-   - Serializes the permanently sanitized document.
-7. **Download** — The clean PDF is instantly available for download.
+AegisLayer detects and redacts the following PII types:
+
+- **Personal Names** — Full names, first/last names (via NER + N-gram analysis)
+- **Email Addresses** — All standard email formats
+- **Phone Numbers** — Indian (+91), US, and international formats
+- **Government IDs** — Aadhaar (12-digit), PAN, SSN, Passport numbers
+- **Financial Data** — Bank account numbers, IFSC codes, credit card numbers
+- **Addresses** — Physical addresses, PIN codes, ZIP codes
+- **Digital Identifiers** — LinkedIn/GitHub URLs, IP addresses, Employee IDs
+- **Professional Info** — Company names, designations, roles (via context triggers)
+- **Dates** — Date of Birth and other sensitive dates
+- **Custom Context** — Any text near labels like "Name:", "Company:", "DOB:", etc.
+
+---
+
+## 🚀 Quick Install
+
+### Option 1: Download Pre-Built Extension (Recommended)
+
+1. Go to the [**Releases**](../../releases) page of this repository.
+2. Download the latest `AegisLayer-v1.x.x.zip` file.
+3. Unzip the downloaded file. You will get a folder named `chrome-mv3-prod`.
+4. Open your browser and navigate to:
+   - **Chrome**: `chrome://extensions`
+   - **Edge**: `edge://extensions`
+   - **Brave**: `brave://extensions`
+5. Enable **Developer Mode** (toggle in the top-right corner).
+6. Click **"Load unpacked"**.
+7. Select the `chrome-mv3-prod` folder you unzipped.
+8. ✅ AegisLayer is now active! You'll see the shield icon in your toolbar.
+
+### Option 2: Build From Source
+
+See the [Build From Source](#-build-from-source) section below.
 
 ---
 
 ## 📖 Usage Guide
 
-### Automatic Mode (Interception)
-1. Navigate to **any website** with a file upload form (e.g., a job portal, document submission site).
-2. Try to upload a PDF file using the site's upload button or drag-and-drop zone.
-3. AegisLayer will **automatically intercept** the upload and open the review workspace.
-4. Review the detected PII entities in the sidebar panel.
-5. Toggle off any items you **don't** want redacted.
-6. Click **"Download Sanitized PDF"** to get the clean version.
-7. Re-upload the sanitized file to the website.
+### Method 1: Automatic Interception (Zero Effort)
 
-### Manual Mode (Extension Popup)
+1. Simply browse the web normally.
+2. Whenever you try to **upload a PDF** on any website (e.g., job portals, government forms, banking sites), AegisLayer will **automatically intercept** it.
+3. A full-screen review workspace opens showing:
+   - A preview of your document
+   - All detected PII entities highlighted with colored badges
+   - Toggle switches to approve/reject each redaction
+4. Click **"Sanitize & Download"** to get the clean PDF.
+5. The sanitized PDF is automatically re-injected into the website's upload field.
+
+### Method 2: Manual Upload (Via Popup)
+
 1. Click the **AegisLayer shield icon** in your browser toolbar.
 2. (Optional) Click the ⚙️ gear icon to select an AI provider and enter your API key.
-3. Click **"Upload PDF"** and select any PDF from your computer.
-4. The full review workspace opens on the current tab.
-5. Review, toggle, and download as described above.
+3. Click **"Upload PDF"** and select your document.
+4. Review and approve the detected entities in the workspace.
+5. Download your sanitized PDF.
 
 ### Configuring AI Providers
-1. Open the extension popup.
-2. Click the **⚙️ Settings** gear icon.
-3. Select your preferred **Detection Engine** from the dropdown.
-4. If using a cloud provider, paste your API key in the field below.
-5. The status indicator will show:
-   - 🟢 **Green** — Local engine active (no key needed).
-   - 🔵 **Blue** — Cloud provider connected.
-   - 🟡 **Yellow** — API key required.
+
+1. Click the AegisLayer icon → ⚙️ Settings.
+2. Select your preferred **Detection Engine**:
+   - **AegisLayer Local** — Free, offline, instant. Uses regex + heuristics + NER.
+   - **Google Gemini** — Requires a Gemini API key.
+   - **OpenAI GPT-4o** — Requires an OpenAI API key.
+   - **Anthropic Claude** — Requires a Claude API key.
+   - **xAI Grok** — Requires a Grok API key.
+3. Enter your API key if using a cloud provider.
+4. The status indicator will turn green when connected.
+
+> **Note**: Cloud providers require an active API key with available quota. AegisLayer Local works completely offline and is recommended for most users.
 
 ---
 
-## 🤖 Supported AI Providers
+## 🏗️ Architecture
 
-| Provider | Model | Key Required | Best For |
-|----------|-------|:---:|----------|
-| **AegisLayer Local** | Regex + NER + Heuristics | ❌ | Fully offline, instant detection |
-| **Google Gemini** | Gemini 1.5 Flash | ✅ | Fast, cost-effective cloud analysis |
-| **OpenAI** | GPT-4o Mini | ✅ | High-accuracy semantic detection |
-| **Anthropic Claude** | Claude 3 Haiku | ✅ | Safety-focused analysis |
-| **xAI Grok** | Grok 2 | ✅ | Alternative cloud engine |
+AegisLayer is built on the **Plasmo Framework** using Chrome's **Manifest V3** standard.
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                     BROWSER CONTEXT                          │
+│                                                              │
+│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────────┐ │
+│  │   Popup      │  │ Interceptor  │  │   Overlay           │ │
+│  │  (popup.tsx) │  │  (content    │  │  (content script)   │ │
+│  │  Config UI   │  │   script)    │  │  Review workspace   │ │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬──────────────┘ │
+│         │                 │                  │                │
+│         └─────────────────┼──────────────────┘                │
+│                           │                                   │
+│                    chrome.runtime                             │
+│                     .sendMessage                              │
+│                           │                                   │
+│  ┌────────────────────────▼──────────────────────────────┐   │
+│  │           Background Service Worker                    │   │
+│  │  • Message routing                                     │   │
+│  │  • Offscreen document lifecycle management             │   │
+│  └────────────────────────┬──────────────────────────────┘   │
+│                           │                                   │
+│  ┌────────────────────────▼──────────────────────────────┐   │
+│  │        Offscreen Document (tabs/offscreen.tsx)         │   │
+│  │  • Tesseract.js OCR Worker (bypasses website CSP)      │   │
+│  │  • Runs in extension's own secure sandbox              │   │
+│  └───────────────────────────────────────────────────────┘   │
+│                                                              │
+│  ┌───────────────────── LIB ─────────────────────────────┐   │
+│  │  pdfTextExtract.ts  │  PDF.js text layer + OCR merge  │   │
+│  │  piiDetector.ts     │  Regex + Heuristics + NER       │   │
+│  │  ner.ts             │  BERT-based Named Entity Recog. │   │
+│  │  ocr.ts             │  OCR client (message passing)   │   │
+│  │  aiProviders.ts     │  Cloud AI provider abstraction  │   │
+│  │  redactor.ts        │  pdf-lib byte-level redaction   │   │
+│  └───────────────────────────────────────────────────────┘   │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Key Design Decisions
+
+- **Offscreen Document for OCR**: Chrome MV3 content scripts inherit the host website's CSP, which blocks Web Workers. Tesseract.js is run inside an Offscreen Document (a hidden extension-owned HTML page) that has full worker privileges.
+- **Subword Token Grouping**: The BERT NER model produces subword tokens (e.g., `Has##wan##th`). AegisLayer's custom token merger reconstructs full entity names from these fragments.
+- **Chunked NER Processing**: Documents are processed in 450-character overlapping chunks to stay within BERT's 512-token limit while covering up to 8,000 characters.
+- **Coordinate Mapping**: PDF.js uses a top-left origin coordinate system; pdf-lib uses bottom-left. The redactor performs precise CropBox-aware coordinate transformation to ensure pixel-perfect redaction alignment.
 
 ---
 
-## 🏗️ Build from Source
+## 🤖 AI Providers
+
+| Provider | Model | Cost | Best For |
+|---|---|---|---|
+| **AegisLayer Local** | Regex + Heuristics + BERT NER | Free | Most documents, offline use |
+| **Google Gemini** | Gemini 1.5 Flash | Pay-per-use | Deep semantic analysis |
+| **OpenAI** | GPT-4o Mini | Pay-per-use | High accuracy NLP |
+| **Anthropic** | Claude 3 Haiku | Pay-per-use | Nuanced context understanding |
+| **xAI** | Grok 2 | Pay-per-use | Alternative cloud option |
+
+> All cloud API requests go directly from your browser to the provider's API. AegisLayer never routes your data through any intermediary server.
+
+---
+
+## 🔨 Build From Source
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/) v18 or later
 - npm (comes with Node.js)
+- A Chromium-based browser (Chrome, Edge, Brave, Opera, Arc)
 
 ### Steps
 
@@ -196,111 +230,117 @@ cd Aegis_Layer
 # 2. Install dependencies
 npm install
 
-# 3. Copy Tesseract OCR engine files to assets
-# (Required for image-based PDF scanning)
-cp node_modules/tesseract.js/dist/worker.min.js assets/tesseract-worker.min.js
-cp node_modules/tesseract.js-core/*.wasm.js assets/
-cp node_modules/tesseract.js-core/*.wasm assets/
-cp node_modules/tesseract.js-core/tesseract-core*.js assets/
-
-# 4. Build the production extension
+# 3. Build the production extension
 npm run build
 
-# 5. Load into Chrome
-# Open chrome://extensions → Enable Developer Mode → Load Unpacked
-# Select the "build/chrome-mv3-prod" folder
+# 4. Load the extension in your browser
+#    Navigate to chrome://extensions
+#    Enable "Developer Mode"
+#    Click "Load unpacked"
+#    Select the `build/chrome-mv3-prod` folder
 ```
 
 ### Development Mode
 
 ```bash
-# Start the dev server with hot reload
+# Start Plasmo dev server with hot-reload
 npm run dev
 
-# Load the "build/chrome-mv3-dev" folder in Chrome
+# Load the `build/chrome-mv3-dev` folder as an unpacked extension
 ```
 
 ---
 
-## 🏛️ Architecture
+## 📁 Project Structure
 
 ```
 AegisLayer/
-├── assets/                    # Static assets (icon, Tesseract OCR engine files)
-│   ├── icon.png               # Extension icon
-│   ├── eng.traineddata.gz     # English language data for OCR
-│   ├── tesseract-worker.min.js
-│   └── tesseract-core-*.wasm* # WebAssembly OCR engine (multiple CPU variants)
+├── assets/                          # Static assets
+│   ├── icon.png                     # Extension icon (all sizes auto-generated)
+│   ├── banner.png                   # README banner
+│   ├── eng.traineddata.gz           # Tesseract English language data
+│   ├── tesseract-worker.min.js      # Tesseract web worker (v7)
+│   └── tesseract-core-*.wasm*       # WebAssembly OCR engine variants
 │
-├── contents/                  # Content Scripts (injected into web pages)
-│   ├── interceptor.ts         # Capture-phase file upload interceptor
-│   └── overlay.tsx            # Full review workspace UI (Shadow DOM)
+├── contents/                        # Content scripts (injected into web pages)
+│   ├── interceptor.ts               # PDF upload interceptor (capture-phase)
+│   └── overlay.tsx                   # Full review workspace UI
 │
-├── lib/                       # Core processing libraries
-│   ├── aiProviders.ts         # Multi-provider AI abstraction layer
-│   ├── ner.ts                 # Local NER engine (Xenova/bert-base-NER)
-│   ├── ocr.ts                 # OCR client (routes to Offscreen Document)
-│   ├── pdfTextExtract.ts      # PDF.js text extraction with OCR merging
-│   ├── piiDetector.ts         # Hybrid PII detection (heuristics + NER)
-│   └── redactor.ts            # pdf-lib byte-level redaction engine
+├── lib/                             # Core engine modules
+│   ├── aiProviders.ts               # Cloud AI provider abstraction layer
+│   ├── ner.ts                       # BERT-based Named Entity Recognition
+│   ├── ocr.ts                       # OCR client (routes to offscreen document)
+│   ├── pdfTextExtract.ts            # PDF.js text extraction + OCR merge
+│   ├── piiDetector.ts               # Heuristic + NER PII detection engine
+│   └── redactor.ts                  # pdf-lib byte-level redaction engine
 │
-├── store/                     # Shared type definitions
-│   └── uiState.ts             # PIIEntity type used across modules
+├── store/                           # Shared type definitions
+│   └── uiState.ts                   # PIIEntity type definition
 │
-├── tabs/                      # Extension pages
-│   └── offscreen.tsx          # Offscreen Document for secure OCR execution
+├── tabs/                            # Extension pages
+│   └── offscreen.tsx                # Hidden OCR worker document
 │
-├── background.ts              # Service Worker (message routing, offscreen mgmt)
-├── popup.tsx                   # Extension popup UI (upload + settings)
-├── style.css                  # Global Tailwind + custom styles
-├── global.d.ts                # TypeScript declarations for Plasmo imports
-├── package.json               # Dependencies and manifest configuration
-├── tsconfig.json              # TypeScript configuration
-├── postcss.config.js          # PostCSS / Tailwind configuration
-└── tailwind.config.js         # Tailwind CSS configuration
+├── background.ts                    # Service worker (message routing + offscreen lifecycle)
+├── popup.tsx                        # Extension popup UI (upload + config)
+├── style.css                        # Global Tailwind + custom styles
+├── global.d.ts                      # TypeScript module declarations
+├── package.json                     # Dependencies + manifest config
+├── tsconfig.json                    # TypeScript configuration
+├── tailwind.config.js               # Tailwind CSS configuration
+├── postcss.config.js                # PostCSS configuration
+├── LICENSE                          # MIT License
+└── README.md                        # This file
 ```
-
-### Key Technologies
-
-| Technology | Purpose |
-|-----------|---------|
-| [Plasmo](https://docs.plasmo.com/) | Browser extension framework (Chrome MV3) |
-| [pdfjs-dist](https://mozilla.github.io/pdf.js/) | PDF text layer extraction |
-| [pdf-lib](https://pdf-lib.js.org/) | PDF modification and byte-level redaction |
-| [Tesseract.js](https://tesseract.projectnaptha.com/) | Client-side OCR for scanned/image PDFs |
-| [@xenova/transformers](https://huggingface.co/docs/transformers.js/) | Local NER AI model (BERT-based) |
-| [React](https://react.dev/) | UI components |
-| [Tailwind CSS](https://tailwindcss.com/) | Styling framework |
-| [Lucide React](https://lucide.dev/) | Icon library |
 
 ---
 
-## 🔐 Privacy & Security
+## 🌐 Browser Compatibility
 
-- **Zero Data Exfiltration** — No telemetry, no analytics, no tracking. AegisLayer never phones home.
-- **Local-First Architecture** — The default detection engine runs entirely offline using regex, heuristics, and a local AI model.
-- **Optional Cloud AI** — Cloud providers are strictly opt-in. When used, text is sent directly from your browser to the selected API with your own key. AegisLayer has no intermediary server.
-- **API Keys are Local** — Keys are stored in `chrome.storage.local` and never leave your machine.
-- **Metadata Wipe** — The redactor strips all PDF metadata (author, creator, timestamps, producer) in addition to redacting content.
+| Browser | Status | Notes |
+|---|---|---|
+| Google Chrome | ✅ Fully Supported | Primary target |
+| Microsoft Edge | ✅ Fully Supported | Chromium-based |
+| Brave | ✅ Fully Supported | Chromium-based |
+| Opera | ✅ Fully Supported | Chromium-based |
+| Arc | ✅ Fully Supported | Chromium-based |
+| Firefox | ❌ Not Supported | Uses different extension API |
+| Safari | ❌ Not Supported | Uses different extension API |
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| [Plasmo](https://www.plasmo.com/) | Browser extension framework |
+| [React 18](https://react.dev/) | UI components |
+| [TypeScript](https://www.typescriptlang.org/) | Type-safe development |
+| [Tailwind CSS](https://tailwindcss.com/) | Utility-first styling |
+| [PDF.js](https://mozilla.github.io/pdf.js/) | PDF text layer extraction |
+| [pdf-lib](https://pdf-lib.js.org/) | PDF modification & redaction |
+| [Tesseract.js v7](https://tesseract.projectnaptha.com/) | Optical Character Recognition |
+| [@xenova/transformers](https://huggingface.co/docs/transformers.js) | BERT NER model (local AI) |
+| [Lucide React](https://lucide.dev/) | Icon library |
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
+Contributions are welcome! Here's how to get started:
 
-1. **Fork** the repository
-2. **Create** a feature branch: `git checkout -b feature/my-feature`
-3. **Commit** your changes: `git commit -m "Add my feature"`
-4. **Push** to the branch: `git push origin feature/my-feature`
-5. **Open** a Pull Request
+1. **Fork** this repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Make your changes and test them
+4. Commit: `git commit -m "Add your feature"`
+5. Push: `git push origin feature/your-feature`
+6. Open a **Pull Request**
 
-### Ideas for Contribution
-- Multilingual OCR support (Hindi, Tamil, etc.)
-- Firefox MV3 compatibility
-- Batch PDF processing
-- Custom redaction patterns (user-defined regex)
-- PDF password/encryption support
+### Development Tips
+
+- Run `npm run dev` for hot-reload during development
+- Check the browser console (F12) for `AegisLayer [...]` debug logs
+- Test with both text-based and image-based PDFs
+- Verify redaction by opening the output PDF in a text editor — no PII should remain in the raw bytes
 
 ---
 
@@ -311,5 +351,9 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ---
 
 <p align="center">
-  <strong>Built with ❤️ for privacy</strong>
+  <strong>Built with ❤️ by <a href="https://github.com/HaswanthR-CIT">Haswanth R</a></strong>
+</p>
+
+<p align="center">
+  <em>Your documents. Your privacy. Your control.</em>
 </p>

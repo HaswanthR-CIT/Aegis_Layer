@@ -1,35 +1,33 @@
-# Dependencies
+# ─── Dependencies ────────────────────────────────────────
 node_modules/
 
-# Build output (users build from source)
+# ─── Build Output ────────────────────────────────────────
 build/
 .plasmo/
 
-# IDE & Editor
+# ─── TypeScript Cache ────────────────────────────────────
+*.tsbuildinfo
+
+# ─── IDE & OS Files ──────────────────────────────────────
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# OS files
 .DS_Store
 Thumbs.db
-Desktop.ini
+desktop.ini
 
-# Environment & secrets
-.env
-.env.local
-.env.*.local
+# ─── Logs ────────────────────────────────────────────────
+*.log
+npm-debug.log*
 
-# TypeScript cache
-tsconfig.tsbuildinfo
-
-# Test & debug artifacts
+# ─── Personal / Test Files ───────────────────────────────
+*.pdf
 test_*.js
 analyze_*.js
 download_*.js
-*.log
 
-# Personal PDFs used during development
-*.pdf
+# ─── Environment Variables ───────────────────────────────
+.env
+.env.*
