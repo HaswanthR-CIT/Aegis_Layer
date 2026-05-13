@@ -94,14 +94,14 @@ AegisLayer detects and redacts the following PII types:
 
 1. Go to the [**Releases**](../../releases) page of this repository.
 2. Download the latest `AegisLayer-v1.x.x.zip` file.
-3. Unzip the downloaded file. You will get a folder named `chrome-mv3-prod`.
+3. Unzip the downloaded file. You will get a folder named `AegisLayer-v1.x.x.`.
 4. Open your browser and navigate to:
    - **Chrome**: `chrome://extensions`
    - **Edge**: `edge://extensions`
    - **Brave**: `brave://extensions`
 5. Enable **Developer Mode** (toggle in the top-right corner).
 6. Click **"Load unpacked"**.
-7. Select the `chrome-mv3-prod` folder you unzipped.
+7. Select the `AegisLayer-v1.x.x.` folder you unzipped.
 8. ✅ AegisLayer is now active! You'll see the shield icon in your toolbar.
 
 ### Option 2: Build From Source
@@ -351,7 +351,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ---
 
 <p align="center">
-  <strong>Built with ❤️ by <a href="https://github.com/HaswanthR-CIT">Haswanth R</a></strong>
+  <strong>Built by <a href="https://github.com/HaswanthR-CIT">Haswanth R</a></strong>
 </p>
 
 <p align="center">
