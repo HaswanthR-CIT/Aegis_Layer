@@ -1,0 +1,51 @@
+{
+  "name": "aegislayer",
+  "displayName": "AegisLayer",
+  "version": "1.1.0",
+  "description": "The Document Sentinel — Privacy-First PDF Sanitization",
+  "author": "AegisLayer Team",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "@xenova/transformers": "^2.17.2",
+    "autoprefixer": "latest",
+    "lucide-react": "latest",
+    "pdf-lib": "latest",
+    "pdfjs-dist": "^5.6.205",
+    "plasmo": "latest",
+    "postcss": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.0",
+    "tesseract.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@plasmohq/prettier-plugin-sort-imports": "latest",
+    "@types/chrome": "latest",
+    "@types/node": "latest",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "prettier": "latest",
+    "typescript": "latest"
+  },
+  "manifest": {
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting",
+      "offscreen"
+    ],
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["assets/*"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+}
